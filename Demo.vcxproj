@@ -138,13 +138,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CLI.cpp" />
+    <ClCompile Include="gameresource.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="uiresource.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CLI.h" />
-    <ClInclude Include="ConsoleColor.h" />
+    <ClInclude Include="cli.h" />
+    <ClInclude Include="gameresource.h" />
     <ClInclude Include="std.h" />
+    <ClInclude Include="uiresource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

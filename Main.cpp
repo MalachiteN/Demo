@@ -1,8 +1,15 @@
 #include "std.h"
-#include "CLI.h"
+#include "cli.h"
 
-int main() {
-	std::string test = "≤‚ ‘≤‚ ‘≤‚ ‘≤‚ ‘£°’‚ «÷–Œƒ≤‚ ‘£°!";
-	CLI::drawTextBox(20, 21, '#', "≤‚ ‘≤‚ ‘≤‚ ‘");
+int main()
+{
+	baseUI testBaseUI = baseUI();
+	check("OK "<<1);
+	structUI testStructUI = structUI(3, 3, 10, 10, '*');
+	check("OK "<<2);
+	testBaseUI.drawOnBase(testStructUI.draw());
+	check("OK "<<3);
+	testBaseUI.drawToScreen();
+	check("OK "<<4);
 	return 0;
 }
