@@ -9,4 +9,3 @@
 #include <algorithm>
 
 #endif // _STD_
-

@@ -4,6 +4,9 @@
 namespace CLI {
 	std::vector<std::string> splitStringByLength(std::string str, int len) {
 		std::vector<std::string> result;
+		if(len % 2 == 1){
+			len -= 1;
+		}
 		int numOfSection = str.length() / len + 1;
 		int sttPos = 0;
 		for (int i = 0; i < numOfSection; i++) {
