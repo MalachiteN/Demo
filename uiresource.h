@@ -48,18 +48,19 @@ protected:
 class stringUI:public UI
 {
 public:
+	std::wstring str;
 	stringUI(int outer_x = 0, int outer_y = 0, std::wstring outer_str = L"");
 	drawable draw();
 
 protected:
 	int x, y;
-	std::wstring str;
 };
 
-class multistringUI:public UI
+class multiStringUI:public stringUI
 {
 public:
-	multistringUI(int outer_x, int outer_y, int count, ...);
+	multiStringUI(int outer_x, int outer_y, int count, ...);
+	multiStringUI(stringUI source, int lengthLimit);
 	drawable draw();
 
 private:

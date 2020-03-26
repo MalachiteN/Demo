@@ -5,9 +5,6 @@
 
 #include "std.h"
 
-
-std::wstring getCompleteCharFromwstring(std::wstring str);
-
-std::vector<std::wstring> splitwstringByLength(std::wstring str);
+std::vector<std::wstring> splitstringByLength(std::wstring str);
 
 #endif // !__SUPPORTALGORITHM__

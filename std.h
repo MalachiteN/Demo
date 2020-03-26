@@ -11,11 +11,13 @@
 #include <iostream>
 #include <algorithm>
 
+// comment this marco when release
 #define DEBUG
 
 #ifdef DEBUG
-#define check(str) std::cerr<<str<<std::endl
-#endif // DEBUG
 
+#define check(str) std::cerr<<str<<std::endl
+
+#endif // DEBUG
 
 #endif // _STD_

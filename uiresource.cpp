@@ -57,7 +57,7 @@ void baseUI::drawToScreen()
 {
 	for (unsigned int i = 0; i < this->scratch.size(); i++)
 	{
-		std::wcout << this->scratch[i] << std::endl;
+		std::wcout << this->scratch[i].substr(0, this->scratch[i].length() / 2) << std::endl;
 	}
 }
 
@@ -116,9 +116,9 @@ drawable stringUI::draw()
 	return drawable(this->x, this->y, body);
 }
 
-// multistringUI
+// multiStringUI
 
-multistringUI::multistringUI(int outer_x, int outer_y, int count, ...)
+multiStringUI::multiStringUI(int outer_x, int outer_y, int count, ...)
 {
 	this->x = outer_x;
 	this->y = outer_y;
@@ -130,7 +130,13 @@ multistringUI::multistringUI(int outer_x, int outer_y, int count, ...)
 	}
 }
 
-drawable multistringUI::draw() 
+multiStringUI::multiStringUI(stringUI source, int lengthLimit)
+{
+	std::vector<std::wstring> targetContainer;
+	source.str;
+}
+
+drawable multiStringUI::draw() 
 {
 	return drawable(this->x, this->y, this->container);
 }
