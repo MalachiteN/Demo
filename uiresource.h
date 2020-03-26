@@ -25,7 +25,7 @@ protected:
 class baseUI
 {
 public:
-	baseUI(int line = 27, int column = 120);
+	baseUI(int line = 30, int column = 120);
 	std::string operator[] (int pos);
 	void drawToScreen();
 	void drawOnBase(drawable);
@@ -56,6 +56,14 @@ protected:
 	std::string str;
 };
 
+class multiStringUI:public UI
+{
+public:
+	multiStringUI(int outer_x, int outer_y, int count, ...);
+	drawable draw();
 
+private:
+	std::vector<std::string> container;
+};
 
 #endif // !__UIRESOURCE__

@@ -49,7 +49,6 @@ void baseUI::drawOnBase(drawable uiToDraw)
 		for (int j = 0; (unsigned int)j < uiToDraw[i].length(); j++)
 		{
 			this->scratch[uiToDraw.x + i][uiToDraw.y + j] = uiToDraw[i][j];
-			check("i="<<i<<" j="<<j);
 		}
 	}
 }
@@ -75,7 +74,8 @@ structUI::structUI(int outer_x, int outer_y, int outer_line, int outer_column, c
 
 drawable structUI::draw()
 {
-	char tmp[1] = { this->pixel }; // TODO: 这个东西烫烫烫了
+	std::string tmp = " "; // 3.26 fixed
+	tmp[0] = this->pixel;
 	std::vector<std::string> body;
 	std::string lineStr = "";
 	for (int i = 0; i < this->column; i++)
@@ -101,6 +101,8 @@ drawable structUI::draw()
 	return drawable(this->x, this->y, body);
 }
 
+// stringUI
+
 stringUI::stringUI(int outer_x, int outer_y, std::string outer_str)
 {
 	this->x = outer_x;
@@ -112,4 +114,23 @@ drawable stringUI::draw()
 {
 	std::vector<std::string> body = { this->str };
 	return drawable(this->x, this->y, body);
+}
+
+// multiStringUI
+
+multiStringUI::multiStringUI(int outer_x, int outer_y, int count, ...)
+{
+	this->x = outer_x;
+	this->y = outer_y;
+	va_list arg_ptr;
+	va_start(arg_ptr, count);
+	for (int i = 0; i < count; i++)
+	{
+		this->container.push_back(va_arg(arg_ptr, stringUI).draw()[0]);
+	}
+}
+
+drawable multiStringUI::draw() 
+{
+	return drawable(this->x, this->y, this->container);
 }

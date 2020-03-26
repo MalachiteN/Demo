@@ -7,16 +7,8 @@ map::map()
 {
 }
 
-map::~map()
-{
-}
-
 // ½ÇÉ«Àà
 
 character::character()
-{
-}
-
-character::~character()
 {
 }
