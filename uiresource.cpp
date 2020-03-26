@@ -2,14 +2,14 @@
 
 // drawable
 
-drawable::drawable(int outer_x, int outer_y, std::vector<std::string> outer_body)
+drawable::drawable(int outer_x, int outer_y, std::vector<std::wstring> outer_body)
 {
 	this->x = outer_x;
 	this->y = outer_y;
 	this->body = outer_body;
 }
 
-std::string drawable::operator[] (int pos)
+std::wstring drawable::operator[] (int pos)
 {
 	return this->body[pos];
 }
@@ -26,10 +26,10 @@ UI::UI(int outer_x, int outer_y)
 
 baseUI::baseUI(int line, int column)
 {
-	std::string lineStr = "";
+	std::wstring lineStr = L"";
 	for (int i = 0; i < column; i++)
 	{
-		lineStr += " ";
+		lineStr += L" ";
 	}
 	for (int i = 0; i < line; i++)
 	{
@@ -37,7 +37,7 @@ baseUI::baseUI(int line, int column)
 	}
 }
 
-std::string baseUI::operator[](int pos)
+std::wstring baseUI::operator[](int pos)
 {
 	return this->scratch[pos];
 }
@@ -57,7 +57,7 @@ void baseUI::drawToScreen()
 {
 	for (unsigned int i = 0; i < this->scratch.size(); i++)
 	{
-		std::cout << this->scratch[i] << std::endl;
+		std::wcout << this->scratch[i] << std::endl;
 	}
 }
 
@@ -74,10 +74,10 @@ structUI::structUI(int outer_x, int outer_y, int outer_line, int outer_column, c
 
 drawable structUI::draw()
 {
-	std::string tmp = " "; // 3.26 fixed
+	std::wstring tmp = L" "; // 3.26 fixed
 	tmp[0] = this->pixel;
-	std::vector<std::string> body;
-	std::string lineStr = "";
+	std::vector<std::wstring> body;
+	std::wstring lineStr = L"";
 	for (int i = 0; i < this->column; i++)
 	{
 		lineStr += tmp;
@@ -86,13 +86,13 @@ drawable structUI::draw()
 	lineStr = tmp;
 	for (int i = 0; i < this->column - 2; i++)
 	{
-		lineStr += " ";
+		lineStr += L" ";
 	}
 	lineStr += tmp;
 	for (int i = 0; i < this->line - 2; i++) {
 		body.push_back(lineStr);
 	}
-	lineStr = "";
+	lineStr = L"";
 	for (int i = 0; i < this->column; i++)
 	{
 		lineStr += tmp;
@@ -103,7 +103,7 @@ drawable structUI::draw()
 
 // stringUI
 
-stringUI::stringUI(int outer_x, int outer_y, std::string outer_str)
+stringUI::stringUI(int outer_x, int outer_y, std::wstring outer_str)
 {
 	this->x = outer_x;
 	this->y = outer_y;
@@ -112,13 +112,13 @@ stringUI::stringUI(int outer_x, int outer_y, std::string outer_str)
 
 drawable stringUI::draw()
 {
-	std::vector<std::string> body = { this->str };
+	std::vector<std::wstring> body = { this->str };
 	return drawable(this->x, this->y, body);
 }
 
-// multiStringUI
+// multistringUI
 
-multiStringUI::multiStringUI(int outer_x, int outer_y, int count, ...)
+multistringUI::multistringUI(int outer_x, int outer_y, int count, ...)
 {
 	this->x = outer_x;
 	this->y = outer_y;
@@ -130,7 +130,7 @@ multiStringUI::multiStringUI(int outer_x, int outer_y, int count, ...)
 	}
 }
 
-drawable multiStringUI::draw() 
+drawable multistringUI::draw() 
 {
 	return drawable(this->x, this->y, this->container);
 }

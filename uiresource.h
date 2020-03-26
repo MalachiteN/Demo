@@ -7,9 +7,9 @@
 
 struct drawable {
 	int x, y;
-	std::vector<std::string> body;
-	drawable(int outer_x = 0, int outer_y = 0, std::vector<std::string> outer_body = {});
-	std::string operator[] (int pos);
+	std::vector<std::wstring> body;
+	drawable(int outer_x = 0, int outer_y = 0, std::vector<std::wstring> outer_body = {});
+	std::wstring operator[] (int pos);
 };
 
 class UI
@@ -26,12 +26,12 @@ class baseUI
 {
 public:
 	baseUI(int line = 30, int column = 120);
-	std::string operator[] (int pos);
+	std::wstring operator[] (int pos);
 	void drawToScreen();
 	void drawOnBase(drawable);
 
 private:
-	std::vector<std::string> scratch;
+	std::vector<std::wstring> scratch;
 };
 
 class structUI:public UI
@@ -48,22 +48,22 @@ protected:
 class stringUI:public UI
 {
 public:
-	stringUI(int outer_x = 0, int outer_y = 0, std::string outer_str = "");
+	stringUI(int outer_x = 0, int outer_y = 0, std::wstring outer_str = L"");
 	drawable draw();
 
 protected:
 	int x, y;
-	std::string str;
+	std::wstring str;
 };
 
-class multiStringUI:public UI
+class multistringUI:public UI
 {
 public:
-	multiStringUI(int outer_x, int outer_y, int count, ...);
+	multistringUI(int outer_x, int outer_y, int count, ...);
 	drawable draw();
 
 private:
-	std::vector<std::string> container;
+	std::vector<std::wstring> container;
 };
 
 #endif // !__UIRESOURCE__

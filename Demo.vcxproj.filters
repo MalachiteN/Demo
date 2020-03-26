@@ -24,6 +24,9 @@
     <ClCompile Include="gameresource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="supportalgorithm.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="std.h">
@@ -36,6 +39,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="gameresource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="supportalgorithm.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

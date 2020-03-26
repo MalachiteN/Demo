@@ -6,6 +6,7 @@
 #include <list>
 #include <vector>
 #include <string>
+#include <locale>
 #include <cstdarg>
 #include <iostream>
 #include <algorithm>
