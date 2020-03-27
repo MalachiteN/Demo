@@ -22,10 +22,27 @@ UI::UI(int outer_x, int outer_y)
 	this->y = outer_y;
 }
 
+void UI::modifyPositionTo(int new_x, int new_y)
+{
+	this->x = new_x;
+	this->y = new_y;
+}
+
+void UI::modifyPositionBy(int delta_x, int delta_y)
+{
+	this->x += delta_x;
+	this->y += delta_y;
+}
+
 // baseUI
 
 baseUI::baseUI(int line, int column)
 {
+#ifdef DEBUG
+	std::cerr << "lines: " << line << ", columns: " << column << std::endl;
+	system("pause");
+#endif // DEBUG
+
 	std::wstring lineStr = L"";
 	for (int i = 0; i < column; i++)
 	{
@@ -55,6 +72,7 @@ void baseUI::drawOnBase(drawable uiToDraw)
 
 void baseUI::drawToScreen()
 {
+	system("cls");
 	for (unsigned int i = 0; i < this->scratch.size(); i++)
 	{
 		std::wcout << this->scratch[i].substr(0, this->scratch[i].length() / 2) << std::endl;
@@ -63,13 +81,14 @@ void baseUI::drawToScreen()
 
 // structUI
 
-structUI::structUI(int outer_x, int outer_y, int outer_line, int outer_column, char outer_pixel)
+structUI::structUI(int outer_x, int outer_y, int outer_line, int outer_column, char outer_pixel, bool outer_isSoild)
 {
 	this->x = outer_x;
 	this->y = outer_y;
 	this->line = outer_line;
 	this->column = outer_column;
 	this->pixel = outer_pixel;
+	this->isSoild = outer_isSoild;
 }
 
 drawable structUI::draw()
@@ -83,6 +102,14 @@ drawable structUI::draw()
 		lineStr += tmp;
 	}
 	body.push_back(lineStr);
+	if (isSoild)
+	{
+		for (int i = 0; i < line - 1; i++)
+		{
+			body.push_back(lineStr);
+		}
+		return drawable(this->x, this->y, body);
+	}
 	lineStr = tmp;
 	for (int i = 0; i < this->column - 2; i++)
 	{
@@ -116,6 +143,15 @@ drawable stringUI::draw()
 	return drawable(this->x, this->y, body);
 }
 
+// library function putcharOnScreen
+
+drawable putcharOnScreen(int x, int y, char c)
+{
+	std::wstring tmp = L" ";
+	tmp[0] = c;
+	return stringUI(x, y, tmp).draw();
+}
+
 // multiStringUI
 
 multiStringUI::multiStringUI(int outer_x, int outer_y, int count, ...)
@@ -133,7 +169,10 @@ multiStringUI::multiStringUI(int outer_x, int outer_y, int count, ...)
 multiStringUI::multiStringUI(stringUI source, int lengthLimit)
 {
 	std::vector<std::wstring> targetContainer;
-	source.str;
+	targetContainer = splitStringByLength(source.str, lengthLimit);
+	this->container = targetContainer;
+	this->x = source.x;
+	this->y = source.y;
 }
 
 drawable multiStringUI::draw() 

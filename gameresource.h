@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef __GAMERESOURCE__
+#define __GAMERESOURCE__
+
 class map
 {
 public:
@@ -17,3 +20,5 @@ public:
 private:
 
 };
+
+#endif // !__GAMERESOURCE__

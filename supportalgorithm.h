@@ -5,6 +5,6 @@
 
 #include "std.h"
 
-std::vector<std::wstring> splitstringByLength(std::wstring str);
+std::vector<std::wstring> splitStringByLength(std::wstring str = L"", int lengthLimit = 1);
 
 #endif // !__SUPPORTALGORITHM__

@@ -8,25 +8,26 @@ int main()
 	baseUI testBaseUI = baseUI();
 	structUI testStructUI = structUI(3, 3, 10, 10, '#');
 	testBaseUI.drawOnBase(testStructUI.draw());
+	structUI testSoildStructUI = structUI(20, 20, 5, 5, '*', true);
+	testBaseUI.drawOnBase(testSoildStructUI.draw());
 	stringUI teststringUI = stringUI(0, 0, L"Hello, World!");
 	testBaseUI.drawOnBase(teststringUI.draw());
 	multiStringUI testmultiStringUI = multiStringUI(10, 30, 4,  stringUI(0, 0, L"多行中文字符串UI测试 "),
-																stringUI(0, 0, L"这是第一行 "), 
+																stringUI(0, 0, L"这是第2行 "), 
 																stringUI(0, 0, L"English string test"), 
 																stringUI(0, 0, L"This is Line 4"));
 	testBaseUI.drawOnBase(testmultiStringUI.draw());
+	teststringUI.modifyPositionTo(10, 20);
+	multiStringUI testConstructFromStringUI = multiStringUI(teststringUI, 7);
+	testBaseUI.drawOnBase(testConstructFromStringUI.draw());
+	testConstructFromStringUI.modifyPositionBy(10, 0);
+	testBaseUI.drawOnBase(testConstructFromStringUI.draw());
 	testBaseUI.drawToScreen();
 	return 0;
 }
 /*
  *	TODO LIST
- *
- *	class multiStringUI
- *		为 multiStringUI 类增添使用 stringUI 和宽度限定构造的构造函数
- *			函数签名
- *			multiStringUI(stringUI source, int len) -> multiStringUI
- *
- *	class structUI
- *		为 structUI 类增添实心功能, 使用 protected bool isSolid 标记
- *		并在 draw() 中判断以提供实心的 drawable
+ *	class UI
+ *		设计一个成员函数，用来改变(modify)一个UI在屏幕上的位置。
+ *		"不会动的UI还能叫UI吗?"
  */

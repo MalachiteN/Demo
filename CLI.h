@@ -5,5 +5,6 @@
 
 #include "std.h"
 #include "uiresource.h"
+#include "supportalgorithm.h"
 
 #endif // !__CLI__

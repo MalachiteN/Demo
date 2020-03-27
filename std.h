@@ -8,8 +8,10 @@
 #include <string>
 #include <locale>
 #include <cstdarg>
+#include <cstdlib>
 #include <iostream>
 #include <algorithm>
+#include "supportalgorithm.h"
 
 // comment this marco when release
 #define DEBUG
