@@ -8,7 +8,7 @@ int main()
 	baseUI testBaseUI = baseUI();
 	structUI testStructUI = structUI(3, 3, 10, 10, '#');
 	testBaseUI.drawOnBase(testStructUI.draw());
-	structUI testSoildStructUI = structUI(20, 20, 5, 5, '*', true);
+	structUI testSoildStructUI = structUI(19, 23, 5, 5, '*', true);
 	testBaseUI.drawOnBase(testSoildStructUI.draw());
 	stringUI teststringUI = stringUI(0, 0, L"Hello, World!");
 	testBaseUI.drawOnBase(teststringUI.draw());
@@ -22,12 +22,15 @@ int main()
 	testBaseUI.drawOnBase(testConstructFromStringUI.draw());
 	testConstructFromStringUI.modifyPositionBy(10, 0);
 	testBaseUI.drawOnBase(testConstructFromStringUI.draw());
+	multiStringUI testRollBackUI = multiStringUI(stringUI(22, 4, L"如果你在输入任意命令后回车仍然看到这个多行字符串或者它的一部分，或者原来被它遮挡的部分没有重新显示出来，那么回滚失败了."), 20);
+	testBaseUI.drawOnBase(testRollBackUI.draw());
+	testBaseUI.drawToScreen();
+	_fgetchar();
+	testBaseUI.rollback();
 	testBaseUI.drawToScreen();
 	return 0;
 }
 /*
  *	TODO LIST
- *	class UI
- *		设计一个成员函数，用来改变(modify)一个UI在屏幕上的位置。
- *		"不会动的UI还能叫UI吗?"
+ *	baseUI对象能够支持回滚
  */

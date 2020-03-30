@@ -4,6 +4,7 @@
 #define _STD_
 
 #include <list>
+#include <stack>
 #include <vector>
 #include <string>
 #include <locale>

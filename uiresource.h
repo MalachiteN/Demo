@@ -25,18 +25,6 @@ public:
 	void modifyPositionBy(int delta_x, int delta_y);
 };
 
-class baseUI
-{
-public:
-	baseUI(int line = 30, int column = 120);
-	std::wstring operator[] (int pos);
-	void drawToScreen();
-	void drawOnBase(drawable);
-
-private:
-	std::vector<std::wstring> scratch;
-};
-
 class structUI:public UI
 {
 public:
@@ -73,3 +61,17 @@ private:
 };
 
 #endif // !__UIRESOURCE__
+
+class baseUI
+{
+public:
+	baseUI(int line = 29, int column = 120);
+	std::wstring operator[] (int pos);
+	void drawToScreen();
+	void drawOnBase(drawable);
+	void rollback();
+
+private:
+	std::vector<std::wstring> scratch;
+	std::stack<drawable> rollbackStack;
+};

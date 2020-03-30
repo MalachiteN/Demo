@@ -34,51 +34,6 @@ void UI::modifyPositionBy(int delta_x, int delta_y)
 	this->y += delta_y;
 }
 
-// baseUI
-
-baseUI::baseUI(int line, int column)
-{
-#ifdef DEBUG
-	std::cerr << "lines: " << line << ", columns: " << column << std::endl;
-	system("pause");
-#endif // DEBUG
-
-	std::wstring lineStr = L"";
-	for (int i = 0; i < column; i++)
-	{
-		lineStr += L" ";
-	}
-	for (int i = 0; i < line; i++)
-	{
-		this->scratch.push_back(lineStr);
-	}
-}
-
-std::wstring baseUI::operator[](int pos)
-{
-	return this->scratch[pos];
-}
-
-void baseUI::drawOnBase(drawable uiToDraw)
-{
-	for (int i = 0; (unsigned int)i < uiToDraw.body.size(); i++)
-	{
-		for (int j = 0; (unsigned int)j < uiToDraw[i].length(); j++)
-		{
-			this->scratch[uiToDraw.x + i][uiToDraw.y + j] = uiToDraw[i][j];
-		}
-	}
-}
-
-void baseUI::drawToScreen()
-{
-	system("cls");
-	for (unsigned int i = 0; i < this->scratch.size(); i++)
-	{
-		std::wcout << this->scratch[i].substr(0, this->scratch[i].length() / 2) << std::endl;
-	}
-}
-
 // structUI
 
 structUI::structUI(int outer_x, int outer_y, int outer_line, int outer_column, char outer_pixel, bool outer_isSoild)
@@ -178,4 +133,64 @@ multiStringUI::multiStringUI(stringUI source, int lengthLimit)
 drawable multiStringUI::draw() 
 {
 	return drawable(this->x, this->y, this->container);
+}
+
+// baseUI
+
+baseUI::baseUI(int line, int column)
+{
+#ifdef DEBUG
+	std::cerr << "lines: " << line << ", columns: " << column << std::endl;
+	system("pause");
+#endif // DEBUG
+
+	std::wstring lineStr = L"";
+	for (int i = 0; i < column; i++)
+	{
+		lineStr += L" ";
+	}
+	for (int i = 0; i < line; i++)
+	{
+		this->scratch.push_back(lineStr);
+	}
+}
+
+std::wstring baseUI::operator[](int pos)
+{
+	return this->scratch[pos];
+}
+
+void baseUI::drawOnBase(drawable uiToDraw)
+{
+	std::vector<std::wstring> backup;
+	for (int i = 0; (unsigned int)i < uiToDraw.body.size(); i++)
+	{
+		std::wstring line = L"";
+		for (int j = 0; (unsigned int)j < uiToDraw[i].length(); j++)
+		{
+			line.insert(line.end(), scratch[uiToDraw.x + i][uiToDraw.y + j]);
+			this->scratch[uiToDraw.x + i][uiToDraw.y + j] = uiToDraw[i][j];
+		}
+		backup.push_back(line);
+	}
+	this->rollbackStack.push(drawable(uiToDraw.x, uiToDraw.y, backup));
+}
+
+void baseUI::rollback()
+{
+	if (this->rollbackStack.empty() == false)
+	{
+		drawable backup = this->rollbackStack.top();
+		this->drawOnBase(backup);
+		this->rollbackStack.pop();
+	}
+}
+
+void baseUI::drawToScreen()
+{
+	system("cls");
+	for (unsigned int i = 0; i < this->scratch.size(); i++)
+	{
+		std::wcout << this->scratch[i].substr(0, this->scratch[i].length() / 2) << std::endl;
+	}
 }
