@@ -36,7 +36,7 @@ void UI::modifyPositionBy(int delta_x, int delta_y)
 
 // structUI
 
-structUI::structUI(int outer_x, int outer_y, int outer_line, int outer_column, char outer_pixel, bool outer_isSoild)
+structUI::structUI(int outer_x, int outer_y, int outer_line, int outer_column, std::wstring outer_pixel, bool outer_isSoild)
 {
 	this->x = outer_x;
 	this->y = outer_y;
@@ -48,8 +48,7 @@ structUI::structUI(int outer_x, int outer_y, int outer_line, int outer_column, c
 
 drawable structUI::draw()
 {
-	std::wstring tmp = L" "; // 3.26 fixed
-	tmp[0] = this->pixel;
+	std::wstring tmp = this->pixel; // 3.31 update
 	std::vector<std::wstring> body;
 	std::wstring lineStr = L"";
 	for (int i = 0; i < this->column; i++)
@@ -68,7 +67,7 @@ drawable structUI::draw()
 	lineStr = tmp;
 	for (int i = 0; i < this->column - 2; i++)
 	{
-		lineStr += L" ";
+		lineStr += L"　";
 	}
 	lineStr += tmp;
 	for (int i = 0; i < this->line - 2; i++) {
@@ -147,7 +146,7 @@ baseUI::baseUI(int line, int column)
 	std::wstring lineStr = L"";
 	for (int i = 0; i < column; i++)
 	{
-		lineStr += L" ";
+		lineStr += L"　";
 	}
 	for (int i = 0; i < line; i++)
 	{
@@ -191,6 +190,24 @@ void baseUI::drawToScreen()
 	system("cls");
 	for (unsigned int i = 0; i < this->scratch.size(); i++)
 	{
-		std::wcout << this->scratch[i].substr(0, this->scratch[i].length() / 2) << std::endl;
+		std::wcout << this->scratch[i].substr(0, this->scratch[i].length()) << std::endl;
 	}
 }
+
+// // // // // 以上全部都是基础UI // // // //
+
+// stringBoxUIMixed
+/*
+stringBoxUIMixed::stringBoxUIMixed(int outer_x, int outer_y, int line, int column, std::wstring outer_title, std::wstring outer_text)
+{
+}
+
+stringBoxUIMixed::stringBoxUIMixed(structUI outer_structure, stringUI outer_title, multiStringUI outer_text)
+{
+}
+
+drawable stringBoxUIMixed::draw()
+{
+	return drawable();
+}
+*/

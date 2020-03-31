@@ -29,9 +29,9 @@ class structUI:public UI
 {
 public:
 	int line, column;
-	char pixel;
+	std::wstring pixel;
 
-	structUI(int outer_x = 0, int outer_y = 0, int outer_line = 2, int outer_column = 2, char outer_pixel = '#', bool outer_isSoild = false);
+	structUI(int outer_x = 0, int outer_y = 0, int outer_line = 2, int outer_column = 2, std::wstring outer_pixel = L"#", bool outer_isSoild = false);
 	drawable draw();
 
 private:
@@ -65,7 +65,7 @@ private:
 class baseUI
 {
 public:
-	baseUI(int line = 29, int column = 120);
+	baseUI(int line = 29, int column = 60); // 3.31 update
 	std::wstring operator[] (int pos);
 	void drawToScreen();
 	void drawOnBase(drawable);
@@ -75,3 +75,19 @@ private:
 	std::vector<std::wstring> scratch;
 	std::stack<drawable> rollbackStack;
 };
+
+// // // // // 以上全部都是基础UI // // // //
+
+// 接下来就全部是混合复杂UI了☆~！
+
+/*class stringBoxUIMixed: public stringUI, public structUI
+{
+public:
+	stringBoxUIMixed(int outer_x, int outer_y, int line, int column, std::wstring outer_title, std::wstring outer_text);
+	stringBoxUIMixed(structUI outer_structure, stringUI outer_title, multiStringUI outer_text);
+	drawable draw();
+private:
+	structUI structure;
+	stringUI title;
+	multiStringUI text;
+};*/
