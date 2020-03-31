@@ -53,7 +53,7 @@ class multiStringUI:public stringUI
 {
 public:
 	multiStringUI(int outer_x, int outer_y, int count, ...);
-	multiStringUI(stringUI source, int lengthLimit);
+	multiStringUI(stringUI source = stringUI(), int lengthLimit = 1);
 	drawable draw();
 
 private:
@@ -78,16 +78,16 @@ private:
 
 // // // // // 以上全部都是基础UI // // // //
 
-// 接下来就全部是混合复杂UI了☆~！
+// 接下来就可以*定义*混合复杂UI了☆~！
 
-/*class stringBoxUIMixed: public stringUI, public structUI
+class stringBoxUIMixed: public UI
 {
 public:
-	stringBoxUIMixed(int outer_x, int outer_y, int line, int column, std::wstring outer_title, std::wstring outer_text);
-	stringBoxUIMixed(structUI outer_structure, stringUI outer_title, multiStringUI outer_text);
+	stringBoxUIMixed(int outer_x = 0, int outer_y = 0, std::wstring outer_pixel = L"#", std::wstring outer_title = L"", std::wstring outer_text = L"", int lengthLimit = 1);
 	drawable draw();
+
 private:
 	structUI structure;
 	stringUI title;
 	multiStringUI text;
-};*/
+};

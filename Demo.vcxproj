@@ -144,6 +144,7 @@
     <ClCompile Include="gameresource.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="supportalgorithm.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="uiresource.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,7 @@
     <ClInclude Include="gameresource.h" />
     <ClInclude Include="std.h" />
     <ClInclude Include="supportalgorithm.h" />
+    <ClInclude Include="test.h" />
     <ClInclude Include="uiresource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

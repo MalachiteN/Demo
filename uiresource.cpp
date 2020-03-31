@@ -196,18 +196,19 @@ void baseUI::drawToScreen()
 
 // // // // // 以上全部都是基础UI // // // //
 
-// stringBoxUIMixed
-/*
-stringBoxUIMixed::stringBoxUIMixed(int outer_x, int outer_y, int line, int column, std::wstring outer_title, std::wstring outer_text)
-{
-}
+// 接下来就可以*实现*混合复杂UI了☆~！
 
-stringBoxUIMixed::stringBoxUIMixed(structUI outer_structure, stringUI outer_title, multiStringUI outer_text)
+// stringBoxUIMixed
+
+stringBoxUIMixed::stringBoxUIMixed(int outer_x, int outer_y, std::wstring outer_pixel, std::wstring outer_title, std::wstring outer_text, int column)
 {
+	this->x = outer_x;
+	this->y = outer_y;
+	this->title = stringUI();
+	this->text = multiStringUI(stringUI(outer_x + 3, outer_y + 1, outer_text), column - 2);
 }
 
 drawable stringBoxUIMixed::draw()
 {
 	return drawable();
 }
-*/
