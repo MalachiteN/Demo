@@ -7,10 +7,11 @@
 
 struct drawable
 {
+	bool isPackage; // 该值仅供调试使用
 	int x, y;
 	std::vector<std::wstring> body;
 
-	drawable(int outer_x = 0, int outer_y = 0, std::vector<std::wstring> outer_body = {});
+	drawable(int outer_x = 0, int outer_y = 0, std::vector<std::wstring> outer_body = {}, bool outer_isPackage = false);
 	std::wstring operator[] (int pos);
 };
 
@@ -47,7 +48,7 @@ public:
 	drawable draw();
 };
 
-drawable putcharOnScreen(int x = 0, int y = 0, char c = '*');
+drawable putcharOnScreen(int x = 0, int y = 0, wchar_t c = '＊');
 
 class multiStringUI:public stringUI
 {
@@ -55,8 +56,6 @@ public:
 	multiStringUI(int outer_x, int outer_y, int count, ...);
 	multiStringUI(stringUI source = stringUI(), int lengthLimit = 1);
 	drawable draw();
-
-private:
 	std::vector<std::wstring> container;
 };
 
@@ -69,6 +68,7 @@ public:
 	std::wstring operator[] (int pos);
 	void drawToScreen();
 	void drawOnBase(drawable);
+	drawable pack(int x = 0, int y = 0);
 	void rollback();
 
 private:
@@ -83,11 +83,13 @@ private:
 class stringBoxUIMixed: public UI
 {
 public:
-	stringBoxUIMixed(int outer_x = 0, int outer_y = 0, std::wstring outer_pixel = L"#", std::wstring outer_title = L"", std::wstring outer_text = L"", int lengthLimit = 1);
+	stringBoxUIMixed(int outer_x = 0, int outer_y = 0, std::wstring outer_pixel = L"＃", std::wstring outer_title = L"", std::wstring outer_text = L"", int outer_column = 1);
 	drawable draw();
 
 private:
 	structUI structure;
 	stringUI title;
 	multiStringUI text;
+	int column;
+	int line;
 };

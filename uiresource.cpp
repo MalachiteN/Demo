@@ -2,11 +2,12 @@
 
 // drawable
 
-drawable::drawable(int outer_x, int outer_y, std::vector<std::wstring> outer_body)
+drawable::drawable(int outer_x, int outer_y, std::vector<std::wstring> outer_body, bool outer_isPackage)
 {
 	this->x = outer_x;
 	this->y = outer_y;
 	this->body = outer_body;
+	this->isPackage = outer_isPackage;
 }
 
 std::wstring drawable::operator[] (int pos)
@@ -99,7 +100,7 @@ drawable stringUI::draw()
 
 // library function putcharOnScreen
 
-drawable putcharOnScreen(int x, int y, char c)
+drawable putcharOnScreen(int x, int y, wchar_t c)
 {
 	std::wstring tmp = L" ";
 	tmp[0] = c;
@@ -139,8 +140,11 @@ drawable multiStringUI::draw()
 baseUI::baseUI(int line, int column)
 {
 #ifdef DEBUG
-	std::cerr << "lines: " << line << ", columns: " << column << std::endl;
-	system("pause");
+	if (line == 29 && column == 60)
+	{
+		std::cerr << "lines: " << line << ", columns: " << column << std::endl;
+		system("pause");
+	}
 #endif // DEBUG
 
 	std::wstring lineStr = L"";
@@ -175,6 +179,11 @@ void baseUI::drawOnBase(drawable uiToDraw)
 	this->rollbackStack.push(drawable(uiToDraw.x, uiToDraw.y, backup));
 }
 
+drawable baseUI::pack(int x, int y)
+{
+	return drawable(x, y, this->scratch, true);
+}
+
 void baseUI::rollback()
 {
 	if (this->rollbackStack.empty() == false)
@@ -200,15 +209,33 @@ void baseUI::drawToScreen()
 
 // stringBoxUIMixed
 
-stringBoxUIMixed::stringBoxUIMixed(int outer_x, int outer_y, std::wstring outer_pixel, std::wstring outer_title, std::wstring outer_text, int column)
+stringBoxUIMixed::stringBoxUIMixed(int outer_x, int outer_y, std::wstring outer_pixel, std::wstring outer_title, std::wstring outer_text, int outer_column)
 {
 	this->x = outer_x;
 	this->y = outer_y;
-	this->title = stringUI();
-	this->text = multiStringUI(stringUI(outer_x + 3, outer_y + 1, outer_text), column - 2);
+
+	this->title = stringUI(2, 2, outer_title);
+	this->text = multiStringUI(stringUI(4, 2, outer_text), outer_column - 4);
+
+	this->column = outer_column;
+	this->line = this->text.container.size() + 6;
+	
+	this->structure = structUI(0, 0, this->line, this->column, outer_pixel);
+	
+#ifdef DEBUG
+	if (outer_title.length() < outer_column - 4)
+	{
+		std::cout << outer_title.length() << ' ' << outer_column << std::endl;
+		abort();
+	}
+#endif
 }
 
 drawable stringBoxUIMixed::draw()
 {
-	return drawable();
+	baseUI scratch = baseUI(this->line, this->column);
+	scratch.drawOnBase(this->structure.draw());
+	scratch.drawOnBase(this->text.draw());
+	scratch.drawOnBase(this->title.draw());
+	return scratch.pack(this->x, this->y);
 }

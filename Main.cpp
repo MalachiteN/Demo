@@ -1,7 +1,9 @@
 #include "std.h"
 #include "cli.h"
-#include "test.h"
 
+#ifdef DEBUG
+	#include "test.h"
+#endif
 
 int main()
 {

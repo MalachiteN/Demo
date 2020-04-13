@@ -8,6 +8,7 @@
 #include <vector>
 #include <string>
 #include <locale>
+#include <cassert>
 #include <cstdarg>
 #include <cstdlib>
 #include <iostream>
