@@ -11,7 +11,7 @@ struct drawable
 	int x, y;
 	std::vector<std::wstring> body;
 
-	drawable(int outer_x = 0, int outer_y = 0, std::vector<std::wstring> outer_body = {}, bool outer_isPackage = false);
+	drawable(int outer_x = 0, int outer_y = 0, std::vector<std::wstring> outer_body = {});
 	std::wstring operator[] (int pos);
 };
 

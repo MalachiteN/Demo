@@ -2,12 +2,11 @@
 
 // drawable
 
-drawable::drawable(int outer_x, int outer_y, std::vector<std::wstring> outer_body, bool outer_isPackage)
+drawable::drawable(int outer_x, int outer_y, std::vector<std::wstring> outer_body)
 {
 	this->x = outer_x;
 	this->y = outer_y;
 	this->body = outer_body;
-	this->isPackage = outer_isPackage;
 }
 
 std::wstring drawable::operator[] (int pos)
@@ -181,7 +180,7 @@ void baseUI::drawOnBase(drawable uiToDraw)
 
 drawable baseUI::pack(int x, int y)
 {
-	return drawable(x, y, this->scratch, true);
+	return drawable(x, y, this->scratch);
 }
 
 void baseUI::rollback()
